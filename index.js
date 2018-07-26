@@ -1,5 +1,6 @@
 var express = require("express");
 var handler = require("./handler.js");
+var context = require("./context.js");
 
 module.exports.createApp = function(jstatikContext) {
 
@@ -12,5 +13,11 @@ module.exports.createApp = function(jstatikContext) {
     });
 
     return app;
+
+};
+
+module.exports.createContext = function() {
+
+    return context.createNewContext();
 
 };
