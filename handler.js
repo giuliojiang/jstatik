@@ -32,6 +32,12 @@ module.exports.handle = function(context, baseUrl, reqpath, res) {
 
 };
 
+priv.handleFile = function(fsPath, res) {
+
+    res.sendFile(fsPath);
+
+}
+
 priv.handleDirectory = function(baseUrl, reqpath, fsPath, res, context) {
 
     // Load HTML template
