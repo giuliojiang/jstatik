@@ -10,7 +10,6 @@ module.exports.handle = function(context, baseUrl, reqpath, res) {
 
     // Basic sanitize, remove ..
     var relPath = reqpath.split("..").join("");
-    console.info("relPath is " + relPath);
 
     // Resolve as filesystem place
     var wwwDir = context.getRootDirectory();
@@ -19,7 +18,6 @@ module.exports.handle = function(context, baseUrl, reqpath, res) {
     // Check if it's a directory
     fs.stat(fsPath, function(err, stats) {
         if (err) {
-            console.info("fsPath ["+ fsPath +"] does not exist");
             res.sendStatus(404);
         } else {
             if (stats.isDirectory()) {
@@ -71,14 +69,12 @@ priv.handleDirectory = function(baseUrl, reqpath, fsPath, res, context) {
         var parentPath = path.dirname(fsPath);
         if (priv.isChildOf(parentPath, context.getRootDirectory())) {
             // This path is allowed
-            console.info("Parent ["+ parentPath +"] is allowed");
             var parentLink = baseUrl + reqpath;
             parentLink = path.dirname(parentLink);
             priv.createLinkElement(templateDom, tableBody, "..", parentLink);
         } else {
             // It's a parent of the root directory, so do not show the parent link
             // do nothing here
-            console.info("Parent ["+ parentPath +"] is forbidden");
         }
 
         // Add contents
@@ -104,7 +100,6 @@ priv.handleDirectory = function(baseUrl, reqpath, fsPath, res, context) {
                                 displayName = file;
                             }
                             var targetLink = path.resolve(baseUrl + reqpath, file);
-                            console.info("Target link is " + targetLink);
                             priv.createLinkElement(
                                 templateDom,
                                 tableBody,
